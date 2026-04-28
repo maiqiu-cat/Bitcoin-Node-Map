@@ -47,8 +47,15 @@
   padding: 24px clamp(20px, 4vw, 56px);
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .brand,
-.source-link {
+.source-link,
+.language-toggle {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -74,7 +81,8 @@
   box-shadow: 0 0 28px rgba(255, 184, 38, 0.3);
 }
 
-.source-link {
+.source-link,
+.language-toggle {
   min-height: 38px;
   padding: 0 14px;
   border: 1px solid rgba(108, 221, 255, 0.28);
@@ -84,6 +92,18 @@
   font-size: 13px;
   font-weight: 700;
   backdrop-filter: blur(14px);
+}
+
+.language-toggle {
+  min-width: 74px;
+  justify-content: center;
+  color: #ffe39a;
+  cursor: pointer;
+}
+
+.language-toggle:hover,
+.source-link:hover {
+  border-color: rgba(255, 191, 47, 0.42);
 }
 
 .hero-copy {
@@ -289,6 +309,29 @@
   cursor: pointer;
 }
 
+.copyright {
+  position: absolute;
+  z-index: 3;
+  left: clamp(20px, 4vw, 54px);
+  bottom: clamp(20px, 5vh, 46px);
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #7da9ba;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.copyright a {
+  color: #ffd46f;
+  text-decoration: none;
+}
+
+.copyright a:hover {
+  color: #fff4cc;
+}
+
 .error-note {
   position: absolute;
   z-index: 4;
@@ -331,11 +374,20 @@
   .data-strip button {
     display: none;
   }
+
+  .copyright {
+    bottom: 24px;
+  }
 }
 
 @media (max-width: 640px) {
   .topbar {
     padding: 16px;
+    gap: 10px;
+  }
+
+  .topbar-actions {
+    gap: 8px;
   }
 
   .source-link {
@@ -343,6 +395,12 @@
     padding: 0;
     justify-content: center;
     font-size: 0;
+  }
+
+  .language-toggle {
+    min-width: 54px;
+    padding: 0 10px;
+    font-size: 12px;
   }
 
   .hero-copy {
@@ -379,12 +437,21 @@
 
   .data-strip {
     right: 16px;
-    bottom: 16px;
+    bottom: 42px;
     left: 16px;
     gap: 8px;
   }
 
   .data-strip > div:nth-child(2) {
     display: none;
+  }
+
+  .copyright {
+    right: 16px;
+    bottom: 14px;
+    left: 16px;
+    min-height: auto;
+    justify-content: center;
+    font-size: 11px;
   }
 }

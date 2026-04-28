@@ -10,7 +10,6 @@ type BitcoinGlobeProps = {
 
 const RADIUS = 2.35
 const GOLD = new THREE.Color('#ffbf2f')
-const BLUE = new THREE.Color('#39c8ff')
 const ARC_LAYER_INTERVAL = 14
 const ARC_FADE_SECONDS = 3.4
 const ARC_COUNT = 48
@@ -73,25 +72,6 @@ function createEarthTexture() {
   gradient.addColorStop(1, '#010813')
   ctx.fillStyle = gradient
   ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-  ctx.strokeStyle = 'rgba(57, 200, 255, 0.14)'
-  ctx.lineWidth = 1
-
-  for (let lon = -180; lon <= 180; lon += 15) {
-    const x = ((lon + 180) / 360) * canvas.width
-    ctx.beginPath()
-    ctx.moveTo(x, 0)
-    ctx.lineTo(x, canvas.height)
-    ctx.stroke()
-  }
-
-  for (let lat = -75; lat <= 75; lat += 15) {
-    const y = ((90 - lat) / 180) * canvas.height
-    ctx.beginPath()
-    ctx.moveTo(0, y)
-    ctx.lineTo(canvas.width, y)
-    ctx.stroke()
-  }
 
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
@@ -379,44 +359,6 @@ export function BitcoinGlobe({ dataset }: BitcoinGlobeProps) {
     root.add(earth)
     root.add(createLandLines())
 
-    const atmosphere = new THREE.Mesh(
-      new THREE.SphereGeometry(RADIUS + 0.085, 96, 96),
-      new THREE.MeshBasicMaterial({
-        color: BLUE,
-        transparent: true,
-        opacity: 0.15,
-        side: THREE.BackSide,
-        blending: THREE.AdditiveBlending,
-      }),
-    )
-    atmosphere.scale.setScalar(1.035)
-    root.add(atmosphere)
-
-    const rim = new THREE.Mesh(
-      new THREE.TorusGeometry(RADIUS * 1.04, 0.012, 10, 180),
-      new THREE.MeshBasicMaterial({
-        color: '#49d7ff',
-        transparent: true,
-        opacity: 0.32,
-        blending: THREE.AdditiveBlending,
-      }),
-    )
-    rim.rotation.x = Math.PI / 2
-    root.add(rim)
-
-    const floorRing = new THREE.Mesh(
-      new THREE.TorusGeometry(2.15, 0.012, 10, 240),
-      new THREE.MeshBasicMaterial({
-        color: '#15ccff',
-        transparent: true,
-        opacity: 0.38,
-        blending: THREE.AdditiveBlending,
-      }),
-    )
-    floorRing.position.y = -2.72
-    floorRing.rotation.x = Math.PI / 2
-    scene.add(floorRing)
-
     const ambient = new THREE.AmbientLight('#66cfff', 1.4)
     const key = new THREE.DirectionalLight('#f3fbff', 2.1)
     key.position.set(3, 2.2, 4)
@@ -513,8 +455,6 @@ export function BitcoinGlobe({ dataset }: BitcoinGlobeProps) {
         root.rotation.x += dragging ? 0 : velocityY
         velocityX = THREE.MathUtils.lerp(velocityX, 0.00036, 0.01)
         velocityY *= 0.96
-        floorRing.rotation.z = elapsed * 0.18
-        rim.rotation.z = elapsed * 0.08
       }
 
       if (nodePoints?.material instanceof THREE.ShaderMaterial) {
