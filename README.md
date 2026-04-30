@@ -2,6 +2,10 @@
 
 Interactive 3D Bitcoin reachable node globe built with React, Vite, and Three.js.
 
+<img width="1421" height="796" alt="截屏2026-04-30 09 14 52" src="https://github.com/user-attachments/assets/5b932367-6ae9-4a87-b43f-23404adb4545" />
+
+https://btcnode.ondream.ai/
+
 ## Data Cache
 
 The browser never calls Bitnodes directly. It only reads the local static file:
